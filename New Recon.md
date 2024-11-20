@@ -56,14 +56,23 @@ PORT     STATE SERVICE
 
 	proxychains nc 192.168.28.111 2222
 
-## IF YOU SEE 80 or 8080 JUST NAVIGATE TO WEBPAGE DO NOT wget
+## IF YOU SEE PORT 80 or 8080 JUST NAVIGATE TO WEBPAGE DO NOT wget
+
+# Crete multiple port forwards in one command
+
+(CANNOT FORWARD 6666 or 4444)
+
+```
+ssh -S /tmp/jump jump -O forward -L1111:192.168.28.100:80 -L2222:192.168.28.100:2222 -L3333:192.168.28.111:80 -L5555:192.168.28.111:2222
+```
+
+ss -ntlp to verify ports, All PIDS should be the same
+
+# Navigate to those webpages
+
+	firefox
+
  
-
-ssh -S /tmp/jump jump -O forward -L1111:192.168.28.100:80 -L2222:192.168.28.100:2222 -L3333:192.168.28.111:80 
- -L4444:192.168.28.111:2222
-
-
-
 
 
 

@@ -71,7 +71,12 @@ ss -ntlp to verify ports, All PIDS should be the same
 # Navigate to those webpages
 
 	firefox
+ In url bar
 
+ 	127.0.0.1:1111
+
+  Loopback to local port connecting to remote httpexit
+  \
  
 
 

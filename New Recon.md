@@ -77,7 +77,7 @@ ss -ntlp to verify ports, All PIDS should be the same
 
   Loopback to local port connecting to remote httpexit
 
-
+# ***SIM***
   # Authenticate to first Target using new master socket w/credentials
 
   	ssh -MS /tmp/t1 creds@127.0.0.1 -p 2222
@@ -115,3 +115,5 @@ ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -
 # New Master Socket using ports we just created
 
 	ssh -MS /tmp/t2 creds@127.0.0.1 -p 1112
+
+# ***END SIM***

@@ -109,7 +109,7 @@ ss -ntlp to verify ports, All PIDS should be the same
 proxychains nc 100.200.25.30[35] 80[2222]
 
 # New port forward
-ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -L9999:200.100.25.35:80 -L1112:200.100.25.35:2222
+	ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -L9999:200.100.25.35:80 -L1112:200.100.25.35:2222
 
 
 # New Master Socket using ports we just created
@@ -117,3 +117,5 @@ ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -
 	ssh -MS /tmp/t2 creds@127.0.0.1 -p 1112
 
 # ***END SIM***
+
+

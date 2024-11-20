@@ -92,7 +92,7 @@ ss -ntlp to verify ports, All PIDS should be the same
 
 	ssh -S /tmp/jump -O close -D9050
 
-(To close change "forward" to "cancel")
+(To close -D, change "forward" to "cancel")
  
 # port forward through new master socket t1
 
@@ -106,7 +106,7 @@ ss -ntlp to verify ports, All PIDS should be the same
 
 ## interrogate found ports 
 
-proxychains nc 100.200.25.30[35] 80[2222]
+	proxychains nc 100.200.25.30[35] 80[2222]
 
 # New port forward
 	ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -L9999:200.100.25.35:80 -L1112:200.100.25.35:2222
@@ -118,4 +118,29 @@ proxychains nc 100.200.25.30[35] 80[2222]
 
 # ***END SIM***
 
+# nmap script from lin ops
+
+	proxychains nmap --script=http-enum.nse 192.168.28.100
+
+ ### Output 
+
+
+ ```
+Nmap scan report for 192.168.28.100
+Host is up (0.00073s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+| http-enum: 
+|   /admin/: Possible admin folder
+|   /admin/login.php: Possible admin folder
+|_  /img/: Potentially interesting directory w/ listing on 'apache/2.4.29 (ubuntu)'
+2222/tcp open  EtherNetIP-1
+
+```
+
+# Navigate to found site and interrogate
+
+
+	firefox 127.0.0.1:1111/admin/login.php
 

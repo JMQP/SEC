@@ -76,10 +76,42 @@ ss -ntlp to verify ports, All PIDS should be the same
  	127.0.0.1:1111
 
   Loopback to local port connecting to remote httpexit
-  \
+
+
+  # Authenticate to first Target using new master socket w/credentials
+
+  	ssh -MS /tmp/t1 creds@127.0.0.1 -p 2222
+
+# ping sweep new network
+
+	for i in {20..40}; do (ping -c 1 100.200.25.$i | grep "bytes from" &) ; done
+
+### found 100.200.25.30,35
+
+## cancel first port forward
+
+	ssh -S /tmp/jump -O close -D9050
+
+(To close change "forward" to "cancel")
  
+# port forward through new master socket t1
+
+	ssh -S /tmp/t1 -O forward -D9050
+
+# scan found IPs
+
+	proxychains nmap 10.200.25.30,35
+
+### found 80 and 2222 on both
+
+## interrogate found ports 
+
+proxychains nc 100.200.25.30[35] 80[2222]
+
+# New port forward
+ssh -S /tmp/t1 t1 -O forward -L7777:200.100.25.30:80 -L8888:200.100.25.30:2222 -L9999:200.100.25.35:80 -L1112:200.100.25.35:2222
 
 
+# New Master Socket using ports we just created
 
-
- 
+	ssh -MS /tmp/t2 creds@127.0.0.1 -p 1112

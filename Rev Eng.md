@@ -198,3 +198,42 @@ mem1:
  	mov rax, 0  -> store 0 in rax
 	ret			-> return out of code
 ```
+
+# RDP DEMO
+```
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int firstKey(key1)
+{
+    int key2 = atoi(key1);   //setting variable key2 setting to value of key1
+	int p2 = 29;             //set variable p2 to 29
+    if ((key2-123)==0)       //subtracting 123 from key2 (key1) comparing to 0
+    {
+        return 13555;        //return 13555 if key2 (key1) = 0
+    }
+    return 12;     
+}
+
+int main(void) 
+{
+    char key1[20];
+    printf("Enter Key: ");
+    fgets(key1,20,stdin);
+    strtok(key1, "\n");
+    if (firstKey(key1)==13555)
+    {
+        printf("Success!!.\n");
+	    Sleep(5000);
+		return 0;
+    }
+    else
+    {
+        printf("Failed!!.\n", key1);
+	    Sleep(5000);
+		return 0;
+    }
+}
+```

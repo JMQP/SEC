@@ -541,4 +541,12 @@ print(buffer + eip + nop + buf)
 
 Run gdb against script against and see output, modify as needed
 
+e.g. 
 
+## CMDs to Run
+
+info proc map
+
+find /b
+
+***Use these new numbers on target box and insert them into "buffer" and "eip" variable***

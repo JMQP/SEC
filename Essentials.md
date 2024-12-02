@@ -35,3 +35,10 @@ windows_opstation_mNnG
 linux_opstation_mNnG 
 
 192.168.65.20
+
+
+# SCP
+***scp*** ***source:/full/path/of/file***                  ***Destination***
+
+scp student@10.50.33.129:/home/student/secureserverind.exe C:\Users\student\Desktop
+

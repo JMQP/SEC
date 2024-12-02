@@ -42,3 +42,8 @@ linux_opstation_mNnG
 
 scp student@10.50.33.129:/home/student/secureserverind.exe C:\Users\student\Desktop
 
+
+
+# Windows Buffer Overflow Article
+
+https://z3r0th.medium.com/a-simple-buffer-overflow-using-vulnserver-86b011eb673b
